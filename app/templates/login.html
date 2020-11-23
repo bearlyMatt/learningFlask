@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Sign In</h1>
+	<!-- this is the html form tag. it calls for the action (which URL to submit to), the method - post (usual) and novalidate which leaves validation to flask-->
+	<form action="" method="post" novalidate>
+
+		<!-- this argument creates a hidden field to encrypt your password -->
+		{{ form.hidden_tag() }}
+		<p>
+			<!-- in the form, place the username label below the text box-->
+			{{ form.username.label }} <br>
+			<!-- here's the forms username text box-->
+			{{ form.username(size=32) }}<br>
+			<!-- logic to notify user with error in form input-->
+			{% for error in form.username.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			<!-- in the form, create the password label below the text box -->
+			{{ form.password.label }}<br>
+			<!-- here's the form's password text box-->
+			{{ form.password(size=32) }}<br>
+			{% for error in form.password.errors %}
+			<<span style="color: red;">[{{ error }}]</span>>
+			{% endfor %}
+		</p>
+		<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+		<p>{{ form.submit() }}</p>
+	</form>
+{% endblock %}

@@ -2,13 +2,31 @@
 	<head>
 		{% if title %}
 		<title> {{ title }} - Microblog</title>
-		{% else %} 
+		{% else %}
 		<title>Welcome to Microblog</title>
 		{% endif %}
 	</head>
 	<body>
-		<div>Microblog: <a href="/index"Home</a></div>
+		<!-- div container holds the top nav-bar-->
+		<div>
+				Microblog:
+				<!--the function url_for is a foolproof way to create scalable links to your content. the argument is for the endpoint name!-->
+				<a href="{{ url_for('index') }}">Home</a>
+				<a href="{{ url_for('login') }}">Login</a>
+		</div>
 		<hr>
+		<!-- define variable 'messages' as result of get_flashed_messages()-->
+		{% with messages = get_flashed_messages() %}
+		<!-- check if there are flashed messages-->
+		{% if messages %}
+		<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+
 		{% block content %}{% endblock %}
 	</body>
 </html>
